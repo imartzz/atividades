@@ -41,7 +41,7 @@ int digitos_ou_fim(char string[], int i){
 }
 
 int real(char string[], int i){
-    if(string[i] == '\0' || string[i] == '\n') return 1;
+    if(string[i] == '\0' || string[i] == '\n') return 1;    
     if(string[i] == ',' || string[i] == '.'){
         return digitos_ou_fim(string, i + 1);          // se for ',' ou '.' chama funçao pra ver se tem numero depois da ,
     }
