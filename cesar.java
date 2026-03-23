@@ -7,13 +7,13 @@ public class cesar {
     } // verifica se a palavra é FIM
     static String novastring(String s) {
     StringBuilder sb = new StringBuilder();
-    
+
     for (int i = 0; i < s.length(); i++) {
         // Pega o caractere, soma 3 e transforma de volta em char
         char novoChar = (char) (s.charAt(i) + 3);
         sb.append(novoChar);
     }
-    
+
     return sb.toString(); // Retorna a nova string montada
 }
 public static void main(String[] args) {
@@ -22,7 +22,7 @@ public static void main(String[] args) {
     String s = sc.nextLine();
     if(verificar(s) != true) return; // chama pra verificar se é FIM
     String s1 = novastring(s); // Cria a nova string de cesar
-    System.out.println(s1); 
+    System.out.println(s1);
     }
 }
 }

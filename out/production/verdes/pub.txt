@@ -1,0 +1,100 @@
+380 ## Half-Life 2: Episode One ## 01/01/0000
+420 ## Half-Life 2: Episode Two ## 01/01/0000
+620 ## Portal 2 ## 01/01/0000
+730 ## Counter-Strike: Global Offensive ## 01/01/0000
+1630 ## Disciples II: Rise of the Elves ## 01/01/0000
+4520 ## Full Spectrum Warrior ## 01/01/0000
+4780 ## Medieval II: Total War™ Kingdoms ## 01/01/0000
+6830 ## Commandos 2: Men of Courage ## 01/01/0000
+6870 ## Battlestations: Midway ## 01/01/0000
+9010 ## Return to Castle Wolfenstein ## 01/01/0000
+15210 ## Silent Hunter® III ## 01/01/0000
+18420 ## Crazy Machines ## 01/01/0000
+20500 ## Red Faction Guerrilla Steam Edition ## 01/01/0000
+20530 ## Red Faction ## 01/01/0000
+21660 ## Street Fighter® IV ## 01/01/0000
+22340 ## Call of Cthulhu®: Dark Corners of the Earth ## 01/01/0000
+23600 ## Depths of Peril ## 01/01/0000
+24240 ## PAYDAY™ The Heist ## 01/01/0000
+24810 ## Command & Conquer 3: Kane's Wrath ## 01/01/0000
+27000 ## The Path ## 01/01/0000
+29700 ## Guild Wars: Eye of the North® ## 01/01/0000
+38410 ## Fallout 2: A Post Nuclear Role Playing Game ## 01/01/0000
+40930 ## The Misadventures of P.B. Winterbottom ## 01/01/0000
+40990 ## Mafia ## 01/01/0000
+41060 ## Serious Sam Classic: The Second Encounter ## 01/01/0000
+65980 ## Sid Meier's Civilization®: Beyond Earth™ ## 01/01/0000
+102600 ## Orcs Must Die! ## 01/01/0000
+204060 ## Superbrothers: Sword & Sworcery EP ## 01/01/0000
+206420 ## Saints Row IV ## 01/01/0000
+207170 ## Legend of Grimrock ## 01/01/0000
+228360 ## Full Throttle Remastered ## 01/01/0000
+235460 ## METAL GEAR RISING: REVENGEANCE ## 01/01/0000
+236430 ## DARK SOULS™ II ## 01/01/0000
+241540 ## State of Decay ## 01/01/0000
+243040 ## Startopia ## 01/01/0000
+243470 ## Watch_Dogs™ ## 01/01/0000
+248610 ## Door Kickers ## 01/01/0000
+253750 ## Ikaruga ## 01/01/0000
+254700 ## Resident Evil 4 ## 01/01/0000
+275570 ## Summoner ## 01/01/0000
+278640 ## Terrian Saga: KR-17 ## 01/01/0000
+286000 ## Tooth and Tail ## 01/01/0000
+287700 ## METAL GEAR SOLID V: THE PHANTOM PAIN ## 01/01/0000
+291410 ## Duelyst ## 01/01/0000
+291650 ## Pillars of Eternity ## 01/01/0000
+312450 ## Order of Battle: World War II ## 01/01/0000
+327740 ## TRON 2.0 ## 01/01/0000
+328600 ## Frozen Synapse Prime ## 01/01/0000
+330020 ## Children of Morta ## 01/01/0000
+350740 ## The Bug Butcher ## 01/01/0000
+358810 ## Luckslinger ## 01/01/0000
+365770 ## Volume ## 01/01/0000
+380150 ## STASIS ## 01/01/0000
+385760 ## NBA 2K17 ## 01/01/0000
+390290 ## Bulb Boy ## 01/01/0000
+391220 ## Rise of the Tomb Raider™ ## 01/01/0000
+393520 ## Iconoclasts ## 01/01/0000
+415200 ## Motorsport Manager ## 01/01/0000
+416680 ## Zombie Night Terror ## 01/01/0000
+417880 ## Everybody's Gone to the Rapture ## 01/01/0000
+418370 ## Resident Evil 7 Biohazard ## 01/01/0000
+427270 ## Orcs Must Die! Unchained ## 01/01/0000
+452570 ## Battle Chef Brigade Deluxe ## 01/01/0000
+493520 ## GTFO ## 01/01/0000
+500810 ## Arcanum: Of Steamworks and Magick Obscura ## 01/01/0000
+536220 ## The Walking Dead: A New Frontier ## 01/01/0000
+542050 ## Forgotton Anne ## 01/01/0000
+544580 ## BULLET SOUL / バレットソウル - 弾魂 - ## 01/01/0000
+544810 ## KARDS - The WWII Card Game ## 01/01/0000
+553640 ## ICEY ## 01/01/0000
+558990 ## Opus Magnum ## 01/01/0000
+589780 ## The Red Strings Club ## 01/01/0000
+594330 ## Visage ## 01/01/0000
+611670 ## The Elder Scrolls V: Skyrim VR ## 01/01/0000
+630310 ## The Mummy Demastered ## 01/01/0000
+752590 ## A Plague Tale: Innocence ## 01/01/0000
+807120 ## Iratus: Lord of the Dead ## 01/01/0000
+809230 ## Unity of Command II ## 01/01/0000
+824070 ## Objects in Space ## 01/01/0000
+866800 ## The Walking Dead: The Final Season ## 01/01/0000
+921570 ## OCTOPATH TRAVELER™ ## 01/01/0000
+925930 ## Myst III: Exile ## 01/01/0000
+969760 ## Omno ## 01/01/0000
+1038370 ## Trials of Fire ## 01/01/0000
+1091980 ## The Bard's Tale IV: Director's Cut ## 01/01/0000
+1153640 ## Chorus ## 01/01/0000
+1164940 ## Trepang2 ## 01/01/0000
+1170060 ## Boomerang X ## 01/01/0000
+1172380 ## STAR WARS Jedi: Fallen Order™ ## 01/01/0000
+1205170 ## Super Magbot ## 01/01/0000
+1252240 ## Aeon Drive ## 01/01/0000
+1384160 ## GUILTY GEAR -STRIVE- ## 01/01/0000
+1456760 ## ROBOBEAT ## 01/01/0000
+1497440 ## COCOON ## 01/01/0000
+1523720 ## Cook-Out ## 01/01/0000
+1674920 ## Sovereign Syndicate ## 01/01/0000
+1790600 ## DRAGON BALL: Sparking! ZERO ## 01/01/0000
+2014550 ## Voidwrought ## 01/01/0000
+2113850 ## Spirit City: Lofi Sessions ## 01/01/0000
+2362420 ## Mass Effect 2 (2010) Edition ## 01/01/0000
