@@ -167,7 +167,7 @@ public class q5 {
         // gera log: matricula\tcomparacoes\ttempo
         try {
             PrintWriter log = new PrintWriter("matricula_sequencial.txt");
-            log.printf("1593190\t%d\t%.2fms%n", comp, tempo);
+            log.printf("888678\t%d\t%.2fms%n", comp, tempo);
             log.close();
         } catch (IOException e) {
             System.err.println("Erro ao gravar log: " + e.getMessage());
