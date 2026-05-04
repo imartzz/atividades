@@ -7,7 +7,7 @@ public class filaflex {
         ultimo = primeiro;
     }
     
-    public class Celula{
+    public static class Celula{
         int elemento;
         Celula prox;
         public Celula(){
@@ -56,7 +56,17 @@ public class filaflex {
     }
 
     public void inverter(){
-        
+     Celula anterior = null;
+    Celula atual = primeiro.prox;
+    ultimo = atual;
+
+    while (atual != null) {
+        Celula proximo = atual.prox;
+        atual.prox = anterior;
+        anterior = atual;
+        atual = proximo;
+    }
+    primeiro.prox = anterior;
     }
 
     public void mostrar(){
@@ -67,13 +77,10 @@ public class filaflex {
     }
     public static void main(String[] args) {
         filaflex fila = new filaflex();
-        fila.inserir(30);
+        fila.inserir(10);
         fila.inserir(20);
-        fila.inserir(40);
-        fila.inserir(38);
         fila.mostrar();
-        System.out.println(fila.maior());
-        System.out.println(fila.terceiro());
-        System.out.println(fila.somar());
+        fila.inverter();
+        fila.mostrar();
     }
 }

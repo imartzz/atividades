@@ -1,170 +1,128 @@
-import java.util.Random;
+class Arvore {
 
-public class Arvore {
+    class No {
+    int elemento;
+    No esq;
+    No dir;
 
-    private static class Node {
-        int elemento;
-        Node esquerda;
-        Node direita;
+    No(int x) {
+        elemento = x;
+        esq = null;
+        dir = null;
+    }
+}
 
-        public Node(int elemento) {
-            this.elemento = elemento;
-            this.esquerda = null;
-            this.direita = null;
-        }
+    No raiz;
+
+    Arvore() {
+        raiz = null;
     }
 
-    Node raiz;
-    // private int totalElementos = 0; 
-
-    public Arvore() {
-        this.raiz = null;
+    // INSERÇÃO — com retorno de referência
+    void inserir(int x) throws Exception {
+        raiz = inserir(x, raiz);
     }
 
-    public void insert(int elemento) {
-        raiz = inserirRecursivo(raiz, elemento);
-        //totalElementos++; 
-    }
-
-    private Node inserirRecursivo(Node atual, int elemento) {
-        if (atual == null) {
-            return new Node(elemento);
-        }
-
-        if (elemento < atual.elemento) {
-            atual.esquerda = inserirRecursivo(atual.esquerda, elemento);
-        } else if (elemento > atual.elemento) {
-            atual.direita = inserirRecursivo(atual.direita, elemento);
-        }
-        
-        return atual;
-    }
-
-    public int getAltura() {
-        return getAltura(raiz, 0);
-    }
-
-    private int getAltura(Node node, int altura) {
-        if (node == null) {
-            return altura - 1;
+    No inserir(int x, No i) throws Exception {
+        if (i == null) {
+            i = new No(x);
+        } else if (x < i.elemento) {
+            i.esq = inserir(x, i.esq);
+        } else if (x > i.elemento) {
+            i.dir = inserir(x, i.dir);
         } else {
-            int alturaEsq = getAltura(node.esquerda, altura + 1);
-            int alturaDir = getAltura(node.direita, altura + 1);
-            return Math.max(alturaEsq, alturaDir);
+            throw new Exception("Erro: elemento repetido!");
+        }
+        return i;
+    }
+
+    // INSERÇÃO — com passagem de pai
+    void inserirPai(int x) throws Exception {
+        if (raiz == null) {
+            raiz = new No(x);
+        } else {
+            inserirPai(x, raiz, null);
         }
     }
-    
-    public void caminharCentral() {
+
+    void inserirPai(int x, No i, No pai) throws Exception {
+        if (i == null) {
+            if (x < pai.elemento) {
+                pai.esq = new No(x);
+            } else {
+                pai.dir = new No(x);
+            }
+        } else if (x < i.elemento) {
+            inserirPai(x, i.esq, i);
+        } else if (x > i.elemento) {
+            inserirPai(x, i.dir, i);
+        } else {
+            throw new Exception("Erro: elemento repetido!");
+        }
+    }
+
+    // PESQUISA
+    boolean pesquisar(int x) {
+        return pesquisar(x, raiz);
+    }
+
+    boolean pesquisar(int x, No i) {
+        if (i == null) {
+            return false;
+        } else if (x == i.elemento) {
+            return true;
+        } else if (x < i.elemento) {
+            return pesquisar(x, i.esq);
+        } else {
+            return pesquisar(x, i.dir);
+        }
+    }
+
+    // CAMINHAMENTO CENTRAL (Em Ordem): esq → raiz → dir
+    void caminharCentral() {
         caminharCentral(raiz);
         System.out.println();
     }
 
-    public void caminharPos() {
+    void caminharCentral(No i) {
+        if (i != null) {
+            caminharCentral(i.esq);
+            System.out.print(i.elemento + " ");
+            caminharCentral(i.dir);
+        }
+    }
+
+    // CAMINHAMENTO PRÉ-ORDEM: raiz → esq → dir
+    void caminharPre() {
+        caminharPre(raiz);
+        System.out.println();
+    }
+
+    void caminharPre(No i) {
+        if (i != null) {
+            System.out.print(i.elemento + " ");
+            caminharPre(i.esq);
+            caminharPre(i.dir);
+        }
+    }
+
+    // CAMINHAMENTO PÓS-ORDEM: esq → dir → raiz
+    void caminharPos() {
         caminharPos(raiz);
         System.out.println();
     }
 
-    public void caminharPre() {
-        caminharPre(raiz);
-        System.out.println();
-    }
-    public void getSoma() {
-        int somaTotal = calcularSomaRecursivo(raiz);
-        System.out.println("Soma Total dos Elementos: " + somaTotal);
-    }
-
-
-    public void getPares(){
-        int totalPares = numPares(raiz);
-        System.out.println("Quantos Pares: " + totalPares);
-    }
-
-    public void getDivisivelOnze(){
-        boolean temDivisivel = numDivisiveis(raiz);
-        System.out.println("Tem Divisiveis 11: " + temDivisivel);
-    }
-
-    private boolean numDivisiveis(Node node){
-        boolean divisiveis = false;
-         if(node != null){
-        divisiveis = (node.elemento % 11 == 0) || numDivisiveis(node.esquerda) || numDivisiveis(node.direita);
-    }
-    return divisiveis;
-    }
-    
-
-    private int numPares(Node node){
-    int pares = 0;
-    if(node != null){
-        pares = ((node.elemento % 2 == 0) ? 1 : 0) + numPares(node.esquerda) + numPares(node.direita);
-    }
-    
-    
-    return pares;
-    }
-    private int calcularSomaRecursivo(Node node) {
-        if (node == null) {
-            return 0; // Caso base: subárvore nula contribui com 0 para a soma
-        }
-        
-        // Retorna: Valor do nó atual + soma da subárvore esquerda + soma da subárvore direita
-        return node.elemento 
-             + calcularSomaRecursivo(node.esquerda) 
-             + calcularSomaRecursivo(node.direita);
-    }
-    private void caminharPre(Node node) {
-        if (node != null) {
-            System.out.print(node.elemento + " ");
-            caminharPre(node.esquerda);
-            caminharPre(node.direita);
+    void caminharPos(No i) {
+        if (i != null) {
+            caminharPos(i.esq);
+            caminharPos(i.dir);
+            System.out.print(i.elemento + " ");
         }
     }
+}
 
-    private void caminharCentral(Node node) {
-        if (node != null) {
-            caminharCentral(node.esquerda);
-            System.out.print(node.elemento + " ");
-            caminharCentral(node.direita);
-        }
-    }
-
-    private void caminharPos(Node node) {
-        if (node != null) {
-            caminharPos(node.esquerda);
-            caminharPos(node.direita);
-            System.out.print(node.elemento + " ");
-        }
-    }
-
-    public static void main(String[] args) {
-        Arvore arvore = new Arvore();
-        Random random = new Random();
-        random.setSeed(0);
-        arvore.insert(10);
-        arvore.insert(20);
-        arvore.insert(30);
-        arvore.insert(40);
-        arvore.insert(50);
-        arvore.insert(60);
-        arvore.insert(110);
-        // int totalInsercoes = 100000;
-
-        // for (int i = 1; i <= totalInsercoes; i++) {
-            // int elemento = random.nextInt(1000000);
-            // arvore.insert(elemento);
-
-            //int num = arvore.totalElementos;
-            //double log2 = Math.log(num) / Math.log(2);
-            //int altura = arvore.getAltura();
-
-            //System.out.printf("Inserção %d | Elementos: %d | log2(n): %.2f | Altura: %d%n",
-                    //i, num, log2, altura);
-        //}
-
-        //System.out.println("\nAltura final da árvore: " + arvore.getAltura());
-
-    arvore.getSoma();
-    arvore.getPares();
-    arvore.getDivisivelOnze();
+class Main {
+    public static void main(String[] args) throws Exception {
+        Arvore ab = new Arvore();
     }
 }
