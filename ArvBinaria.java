@@ -28,11 +28,25 @@ public class ArvBinaria {
     }
 
     boolean pesquisar(int x, No i){
-        if(i == null) return false;
-        if(x == i.elemento) return true;
-        if(x < i.elemento) return pesquisar(x, i.esq);
+    if(i == null) {
+        System.out.println("Caminho terminou: elemento não encontrado.");
+        return false;
+    }
+
+    // Imprime o nó que você está visitando agora
+    System.out.println("Visitando nó: " + i.elemento);
+
+    if(x == i.elemento) {
+        System.out.println("Encontrado!");
+        return true;
+    }
+
+    if(x < i.elemento) {
+        return pesquisar(x, i.esq);
+    } else {
         return pesquisar(x, i.dir);
     }
+}
     
     void CaminharCentral(No i){
         if(i != null){
