@@ -139,6 +139,27 @@ int pesquisarInternoTam(No2 i, int tamanho) {
     return soma;
 }
 
+public double mediaTamanho(char letra) {
+    No no = pesquisarExterno(letra, raiz);
+    if (no == null) return 0;
+    
+    int totalPalavras = contarInternoSimples(no.raiz);
+    if (totalPalavras == 0) return 0;
+    
+    int somaCaracteres = somarCaracteresInterno(no.raiz);
+    
+    return (double) somaCaracteres / totalPalavras;
+}
+
+private int somarCaracteresInterno(No2 i) {
+   int soma = 0;
+   if(i == null) return soma;
+   soma += i.palavra.length();
+   soma += somarCaracteresInterno(i.dir);
+   soma += somarCaracteresInterno(i.esq);
+   return soma;
+}
+
 
 
     class No {
