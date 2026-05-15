@@ -9,7 +9,7 @@ public class tp33 {
     static int dataMes[] = new int[500];
     static int dataDia[] = new int[500];
 
-    /* retorna data do indice i formatada como DD/MM/YYYY */
+    /* Retorna data do indice i formatada como DD/MM/YYYY */
     static String formatarData(int i) {
         return String.format("%02d/%02d/%04d", dataDia[i], dataMes[i], dataAno[i]);
     }
@@ -59,7 +59,7 @@ public class tp33 {
         total++;
     }
 
-    /* Le o arquivo CSV linha a linha e parseia cada restaurante */
+    /* le o arquivo CSV linha a linha e parseia cada restaurante */
     static void lerCsv() {
         try {
             Scanner sc = new Scanner(new File("/tmp/restaurantes.csv"));
@@ -98,64 +98,53 @@ public class tp33 {
     static long mov  = 0;
 
     /*
-     * Compara dois restaurantes por avaliacao, desempate por nome.
-     * Retorna negativo se i < j, zero se igual, positivo se i > j.
+     * compara dois restaurantes por avaliacao desempate por nome
+     * retorna negativo se i < j, zero se igual positivo se i > j
      */
     static int comparar(int i, int j) {
-        comp++;
         int resp;
         if (avaliacao[subIdx[i]] < avaliacao[subIdx[j]]) {
             resp = -1;
         } else if (avaliacao[subIdx[i]] > avaliacao[subIdx[j]]) {
             resp = 1;
         } else {
-            comp++;
             resp = nome[subIdx[i]].compareTo(nome[subIdx[j]]);
         }
         return resp;
     }
 
     /*
-     * particiona subIdx[inicio..fim] usando o ultimo elemento como pivo.
-     * retorna a posicao final do pivo.
+     * pivo no meio, dois ponteiros i e j dos dois lados
+     * parcial so recursiona lado direito se i < k
      */
-    static int particionar(int inicio, int fim) {
-        int i = inicio - 1;
-        int j;
-        for (j = inicio; j < fim; j++) {
-            if (comparar(j, fim) <= 0) {
-                i++;
-                int temp    = subIdx[i];
-                subIdx[i]   = subIdx[j];
-                subIdx[j]   = temp;
+    static void quicksort(int esq, int dir, int k) {
+        int i = esq, j = dir;
+        int pivoIdx = (esq + dir) / 2;
+
+        while (i <= j) {
+            comp++;
+            while (comparar(i, pivoIdx) < 0) { i++; comp++; }
+            comp++;
+            while (comparar(j, pivoIdx) > 0) { j--; comp++; }
+            if (i <= j) {
+                int temp  = subIdx[i];
+                subIdx[i] = subIdx[j];
+                subIdx[j] = temp;
                 mov += 3;
+                if (pivoIdx == i) pivoIdx = j;
+                else if (pivoIdx == j) pivoIdx = i;
+                i++;
+                j--;
             }
         }
-        int temp      = subIdx[i + 1];
-        subIdx[i + 1] = subIdx[fim];
-        subIdx[fim]   = temp;
-        mov += 3;
-        return i + 1;
+
+        if (esq < j) quicksort(esq, j, k);
+        if (i < dir && i < k) quicksort(i, dir, k);
     }
 
     /*
-     * quicksort parcial com k=10: so ordena lado direito se
-     * ainda ha posicoes menores que k a preencher
-     */
-    static void quicksortParcial(int inicio, int fim, int k) {
-        if (inicio < fim) {
-            int pivo = particionar(inicio, fim);
-            quicksortParcial(inicio, pivo - 1, k);
-            if (pivo + 1 < k) {
-                quicksortParcial(pivo + 1, fim, k);
-            }
-        }
-    }
-
-    /*
-     * Le ids da entrada, ordena parcialmente por avaliacao (k=10)
-     * via quicksort e imprime todos os elementos
-     *  arquivo de log
+     * le ids da entrada ordena parcialmente por avaliacao (k=10)
+     * gera arquivo de log
      */
     public static void main(String[] args) {
         lerCsv();
@@ -170,7 +159,7 @@ public class tp33 {
         sc.close();
 
         long inicio = System.currentTimeMillis();
-        quicksortParcial(0, subTotal - 1, 10);
+        quicksort(0, subTotal - 1, 10);
         long fim = System.currentTimeMillis();
         double tempo = fim - inicio;
 
