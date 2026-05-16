@@ -21,7 +21,7 @@ typedef struct {
 } Restaurante;
 
 typedef struct {
-    int         tamanho;
+    int          tamanho;
     Restaurante restaurantes[500];
 } Colecao_Restaurantes;
 
@@ -96,14 +96,14 @@ Colecao_Restaurantes *ler_csv() {
     return c;
 }
 
-
+/* array 1-based */
 int sub_idx[501];
 int sub_n = 0;
 long int comp_g = 0, mov_g = 0;
 
 /*
- * compara data_abertura dos restaurantes sub_idx[i] e sub_idx[j].
- * Criterio: ano, mes, dia e  empate desempata pelo nome
+ * compara data_abertura dos restaurantes sub_idx[i] e sub_idx[j]
+ * criterio: ano, mes, dia mpate desempata pelo nome
  */
 int comparar(Colecao_Restaurantes *c, int i, int j) {
     comp_g++;
@@ -129,7 +129,7 @@ void trocar(int i, int j) {
 /* Retorna true se no i tem filho no heap de tamanho tam */
 int has_filho(int i, int tam) { return (i <= (tam / 2)); }
 
-/* retorna indice do maior filho do no i no heap de tamanho tam */
+/* Retorna indice do maior filho do no i no heap de tamanho tam */
 int get_maior_filho(Colecao_Restaurantes *c, int i, int tam) {
     int filho;
     if (2*i == tam || comparar(c, 2*i, 2*i+1) > 0) filho = 2*i;
@@ -137,13 +137,13 @@ int get_maior_filho(Colecao_Restaurantes *c, int i, int tam) {
     return filho;
 }
 
-/* Insere elemento na posicao tam no heap, sobe ate posicao correta */
+/* insere elemento na posicao tam no heap, sobe ate posicao correta */
 void construir(Colecao_Restaurantes *c, int tam) {
     int i;
     for (i = tam; i > 1 && comparar(c, i, i/2) > 0; i /= 2) trocar(i, i/2);
 }
 
-/* reconstroi heap de tamanho tam, desce a raiz ate posicao correta */
+/* Reconstroi heap de tamanho tam, desce a raiz ate posicao correta */
 void reconstruir(Colecao_Restaurantes *c, int tam) {
     int i = 1;
     while (has_filho(i, tam)) {
@@ -154,21 +154,40 @@ void reconstruir(Colecao_Restaurantes *c, int tam) {
 }
 
 /*
- * Heapsort parcial k=10
- *  constroi heap com todos os n elementos
- *  extrai apenas k elementos — os k menores ficam nas
- *         primeiras posicoes em ordem crescente
+ * Heapsort parcial k=10:
+ *  constroi um max-heap com os primeiros k elementos
+ *  itera os elementos restantes se um for menor que a raiz, o substitu
+ * ordena apenas os k menores elementos restantes no heap
  */
 void heapsort_parcial(Colecao_Restaurantes *c, int k) {
-    int tam, i;
-    for (tam = 2; tam <= sub_n; tam++) construir(c, tam);
-    tam = sub_n; i = 0;
-    while (tam > 1 && i < k) { trocar(1, tam--); reconstruir(c, tam); i++; }
+    int i;
+    int k_real = (sub_n < k) ? sub_n : k;
+
+    //  constroi o max-heap com os primeiros k_real elementos
+    for (i = 2; i <= k_real; i++) {
+        construir(c, i);
+    }
+
+    // Processa o restante do array
+    for (i = k_real + 1; i <= sub_n; i++) {
+        // Se o elemento em i for menor que a raiz maior dos selecionados ate agora
+        if (comparar(c, i, 1) < 0) {
+            trocar(1, i);
+            reconstruir(c, k_real);
+        }
+    }
+
+    // Ordena os k_real elementos do heap
+    int tam = k_real;
+    while (tam > 1) {
+        trocar(1, tam--);
+        reconstruir(c, tam);
+    }
 }
 
 /*
  * le ids da entrada, ordena parcialmente por data_abertura (k=10)
- * via heapsort e imprime todos os elementos Gera arquivo de log
+ * via heapsort e imprime todos os elementos. Gera arquivo de log
  */
 int main() {
     Colecao_Restaurantes *colecao = ler_csv();
