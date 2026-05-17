@@ -187,7 +187,7 @@ void heapsort_parcial(Colecao_Restaurantes *c, int k) {
 
 /*
  * le ids da entrada, ordena parcialmente por data_abertura (k=10)
- * via heapsort e imprime todos os elementos. Gera arquivo de log
+ * via heapsort e imprime todos os elementos gera arquivo de log
  */
 int main() {
     Colecao_Restaurantes *colecao = ler_csv();

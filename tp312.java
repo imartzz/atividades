@@ -1,10 +1,13 @@
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class tp36 {
+public class tp312 {
 
- 
+    // Variáveis globais para o arquivo de log
+    static int comp = 0;
+
     static int dataAno[] = new int[500];
     static int dataMes[] = new int[500];
     static int dataDia[] = new int[500];
@@ -102,72 +105,89 @@ public class tp36 {
         return -1;
     }
 
-    static class Celula {
+    static class No {
         public int elementoIdx; // Guarda o índice do elemento nos arrays globais
-        public Celula prox;
+        public No esq;
+        public No dir;
 
-        public Celula(int elementoIdx) {
+        public No(int elementoIdx) {
             this.elementoIdx = elementoIdx;
-            this.prox = null;
+            this.esq = null;
+            this.dir = null;
         }
     }
 
-    static class PilhaFlexivel {
-        private Celula topo; 
+    static class ArvoreBinaria {
+        private No raiz;
 
-        public PilhaFlexivel() {
-            topo = new Celula(-1); // Nó cabeça 
+        public ArvoreBinaria() {
+            raiz = null;
         }
 
-        // insere no topo da pilha dps do nó cabeça
-        public void empilhar(int idx) {
-            Celula tmp = new Celula(idx);
-            tmp.prox = topo.prox;
-            topo.prox = tmp;
+        // Insere um elemento na arvore usando o atributo nome como chave
+        public void inserir(int idx) {
+            raiz = inserir(raiz, idx);
         }
 
-        // Remove do topo da pilha 
-        public int desempilhar() throws Exception {
-            if (topo.prox == null) {
-                throw new Exception("Erro ao desempilhar: pilha vazia!");
-            }
-            Celula tmp = topo.prox;
-            int resp = tmp.elementoIdx;
-            topo.prox = tmp.prox;
-            tmp.prox = null;
-            return resp;
-        }
-
-        // Mostra os elementos da base ate o topo
-        public void mostrar() {
-            mostrarRecursivo(topo.prox, 0);
-        }
-
-        private int mostrarRecursivo(Celula i, int pos) {
+        private No inserir(No i, int idx) {
             if (i == null) {
-                return pos;
+                i = new No(idx);
+            } else if (nome[idx].compareTo(nome[i.elementoIdx]) < 0) {
+                i.esq = inserir(i.esq, idx);
+            } else if (nome[idx].compareTo(nome[i.elementoIdx]) > 0) {
+                i.dir = inserir(i.dir, idx);
             }
-            // Imprime o elemento atual antes de descer na pilha (ordem do topo para a base)
-            System.out.println(formatarRestaurante(i.elementoIdx));
-            
-            // vai até o fundo da pilha (base) primeiro
-            int totalElementos = mostrarRecursivo(i.prox, pos + 1);
-            
-            // na volta da recursão calcula a posição correta de baixo para cima [0, 1, 2..]
-            int posAtual = totalElementos - pos - 1;
-            
-            return totalElementos;
+            // Se for igual, o enunciado pede para não inserir duplicados
+            return i;
+        }
+
+        // Pesquisa se uma chave está na árvore mostrando o caminho de ponteiros
+        public void pesquisar(String chave) {
+            System.out.print("raiz ");
+            if (pesquisar(raiz, chave)) {
+                System.out.println("SIM");
+            } else {
+                System.out.println("NAO");
+            }
+        }
+
+        private boolean pesquisar(No i, String chave) {
+            if (i == null) {
+                return false;
+            }
+            comp++;
+            if (chave.equals(nome[i.elementoIdx])) {
+                return true;
+            } else if (chave.compareTo(nome[i.elementoIdx]) < 0) {
+                System.out.print("esq ");
+                return pesquisar(i.esq, chave);
+            } else {
+                System.out.print("dir ");
+                return pesquisar(i.dir, chave);
+            }
+        }
+
+        // Mostra os elementos usando caminhamento em ordem
+        public void caminharEmOrdem() {
+            caminharEmOrdem(raiz);
+        }
+
+        private void caminharEmOrdem(No i) {
+            if (i != null) {
+                caminharEmOrdem(i.esq);
+                System.out.println(formatarRestaurante(i.elementoIdx));
+                caminharEmOrdem(i.dir);
+            }
         }
     }
 
-   
     public static void main(String[] args) {
         lerCsv();
 
         Scanner scIn = new Scanner(System.in);
-        PilhaFlexivel pilha = new PilhaFlexivel();
+        ArvoreBinaria arvore = new ArvoreBinaria();
 
-        // Leitura dos IDs iniciais até encontrar -1
+        // leitura dos IDs iniciais para preencher a árvore até encontrar -1
         while (scIn.hasNextInt()) {
             int idBusca = scIn.nextInt();
             if (idBusca == -1) {
@@ -175,37 +195,39 @@ public class tp36 {
             }
             int idx = obterIndicePorId(idBusca);
             if (idx != -1) {
-                pilha.empilhar(idx);
-            }
-        }
-
-        //  Processamento das operações
-        if (scIn.hasNextInt()) {
-            int numComandos = scIn.nextInt();
-            
-            for (int i = 0; i < numComandos; i++) {
-                String comando = scIn.next();
-
-                try {
-                    if (comando.equals("I")) { // Push
-                        int idBusca = scIn.nextInt();
-                        int idx = obterIndicePorId(idBusca);
-                        if (idx != -1) {
-                            pilha.empilhar(idx);
-                        }
-                    } else if (comando.equals("R")) { // Pop
-                        int idx = pilha.desempilhar();
-                        System.out.println("(R)" + nome[idx]);
-                    }
-                } catch (Exception e) {
-                    System.err.println(e.getMessage());
-                }
+                arvore.inserir(idx);
             }
         }
         
+        // Consumir o fim de linha restante após o número -1
+        if (scIn.hasNextLine()) {
+            scIn.nextLine();
+        }
+
+        long inicio = System.currentTimeMillis();
+        // leitura das chaves de pesquisa por nome até encontrar FIM
+        while (scIn.hasNextLine()) {
+            String chave = scIn.nextLine().trim();
+            if (chave.equals("FIM")) {
+                break;
+            }
+            arvore.pesquisar(chave);
+        }
+        long fim = System.currentTimeMillis();
+        long tempo = fim - inicio;
+        
         scIn.close();
 
-        //  Mostrar estado final da pilha encadeada da base para o topo
-        pilha.mostrar();
+        // apresenta os registros usando caminhamento em ordem
+        arvore.caminharEmOrdem();
+
+       
+        try {
+            PrintWriter log = new PrintWriter("matricula_arvore_binaria.txt");
+            log.printf("888678\t%d\t%dms", comp, tempo);
+            log.close();
+        } catch (IOException e) {
+            System.err.println("Erro ao criar log: " + e.getMessage());
+        }
     }
 }

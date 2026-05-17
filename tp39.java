@@ -28,7 +28,7 @@ class Matriz {
         this.linha = linha;
         this.coluna = coluna;
 
-        // Alocar a primeira célula da matriz (canto superior esquerdo)
+        // Alocar a primeira célula da matriz canto superior esquerdo
         inicio = new Celula();
         Celula linhaAtual = inicio;
 
@@ -144,11 +144,11 @@ class Matriz {
         }
     }
 
-    // imprime os elementos da diagonal secundária
+    // imprime os elementos da diagonal secundsria
     public void mostrarDiagonalSecundaria() {
         if (linha == coluna) {
             Celula i = inicio;
-            // Desloca para o último elemento da primeira linha
+            // Desloca para o ultimo elemento da primeira linha
             while (i.dir != null) {
                 i = i.dir;
             }
@@ -165,7 +165,7 @@ class Matriz {
         }
     }
 
-    // imprime a matriz completa conforme o padrão de saída esperado
+    // imprime a matriz completa 
     public void mostrar() {
         for (Celula i = inicio; i != null; i = i.inf) {
             for (Celula j = i; j != null; j = j.dir) {
@@ -182,10 +182,10 @@ public class tp39 {
         Scanner sc = new Scanner(System.in);
 
         if (sc.hasNextInt()) {
-            int numCasos = sc.nextInt(); // Número de casos de teste 
+            int numCasos = sc.nextInt(); // Numero de casos de teste 
 
             for (int caso = 0; caso < numCasos; caso++) {
-                //  Leitura e criação da Primeira Matriz 
+                //  leitura e criação da Primeira Matriz 
                 int l1 = sc.nextInt();
                 int c1 = sc.nextInt();
                 Matriz m1 = new Matriz(l1, c1);
@@ -196,7 +196,7 @@ public class tp39 {
                     }
                 }
 
-                //  Leitura e criação da Segunda Matriz 
+                //  Leitura e criacao da Segunda Matriz 
                 int l2 = sc.nextInt();
                 int c2 = sc.nextInt();
                 Matriz m2 = new Matriz(l2, c2);
@@ -208,15 +208,15 @@ public class tp39 {
                 }
 
                 // Exibição dos resultados 
-                m1.mostrarDiagonalPrincipal();     // Diagonal principal da primeira 
-                m2.mostrarDiagonalSecundaria();    // Diagonal secundária da segunda 
+                m1.mostrarDiagonalPrincipal();     // diagonal principal da primeira 
+                m2.mostrarDiagonalSecundaria();    // diagonal secundaria da segunda 
 
                 Matriz soma = m1.somar(m2);        // Matriz resultante da Soma 
                 if (soma != null) {
                     soma.mostrar();
                 }
 
-                Matriz multiplicacao = m1.multiplicar(m2); // Matriz resultante da Multiplicação 
+                Matriz multiplicacao = m1.multiplicar(m2); // matriz resultante da Multiplicação 
                 if (multiplicacao != null) {
                     multiplicacao.mostrar();
                 }
